@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+   <div class="registrationForm">
+    {{ form_start(form) }}
+        {{ form_row(form.Name, {
+            label: 'Category name'
+        }) }}
+        <button type="submit" class="btn">Add category</button>
+    {{ form_end(form) }}
+    </div>
+    <hr class="divider">
+    <div class="tabla">
+	<table class="itemsDisposition">
+		<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for category in categories %}
+		<tr>
+			<th scope="row">{{ category.id }}</th>
+			<td>
+				{{ category.Name }}
+			</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+    </div>
+{% endblock %}

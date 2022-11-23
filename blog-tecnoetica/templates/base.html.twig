@@ -9,35 +9,9 @@
 <script type="text/javascript" src="js/cuf_run.js"></script>
 </head>
 <div class="clr"></div>
-        <h2>Contact Info </h2>
-        <p><strong>Phone</strong>: +1234567<br />
-          <strong>Address</strong>: 123 Put Your Address Here <br />
-          <strong>E-mail:</strong> me@jungleland.com<br />
-          <a href="#">contact page</a></p>
-      </div>
-      <div class="blok">
-        <h2><span>Lorem</span> Ipsum</h2>
-        <p>Lorem ipsum dolor Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. <br />
-          Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.</p>
-        <ul>
-          <li><a href="#">• consequat molestie</a></li>
-          <li><a href="#">• sem justo</a></li>
-          <li><a href="#">• semper</a></li>
-          <li><a href="#">• magna sed purus</a></li>
-        </ul>
-      </div>
-      <div class="blok">
-        <h2>Lorem Ipsum</h2>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu posuere nunc justo tempus leo. llorem, eu posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum odio, ac blandit ante orci ut diam.</p>
-        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. Cras id urna. <a href="#">Learn more...</a></p>
-        <p><br />
-        </p>
-      </div>
-      <div class="clr"></div>
-    </div>
-  </div>
 <body>
 <div class="main">
+{% block header %}
   <div class="header">
     <div class="header_resize">
       <div class="logo">
@@ -51,24 +25,23 @@
           <li><a href="/blog"><span>Blog</span></a></li>
           <li><a href="/about"><span>About Us</span></a></li>
           <li><a href="/contact"><span>Contact Us</span></a></li>
+          {% if app.user %}
+          <li><a href="{{ path('app_logout') }}"><i class="fa fa-sign-out sr-icons"></i> {{ app.user.username }} - Logout</a></li>
+          {% else %}
+          <li class="{{ (app.request.attributes.get('_route') == 'app_login')  ? 'active': ''}} lien"><a href="{{ path('app_login') }}"><i class="fa fa-sign-in sr-icons"></i> Login</a></li>
+          <li class="{{ (app.request.attributes.get('_route') == 'app_register')  ? 'active': ''}} "><a href="{{ path('app_register') }}"><i class="fa fa-user-secret sr-icons"></i> Register</a></li>
+          {% endif %}
         </ul>
-      </div>
-      <div class="search">
-        <form id="form1" name="form1" method="post" action="#">
-          <label><span>
-            <input name="q" type="text" class="keywords" id="textfield" maxlength="50" value="Search..." />
-            </span>
-            <input name="b" type="image" src={{ asset('images/search.gif') }} class="button" />
-          </label>
-        </form>
       </div>
       <div class="clr"></div>
     </div>
     <div class="headert_text_resize"> <img src={{ asset('images/img_main.jpg') }} alt="" width="970" height="338" /> </div>
-    <div class="clr"></div>
+    <div class="clr">
   </div>
-    {% block body %}
+  </div>
+  {% endblock %}
     <div class="body">
+    {% block body %}
     <div class="body_resize">
       <div class="left">
         <h2>Template License<br />
@@ -148,6 +121,7 @@
   </div>
   {% endblock %}
   <div class="footer">
+  {% block footer %}
     <div class="footer_resize">
       <p class="lf">Copyright &copy; <a href="#">Domain Name</a>. All Rights Reserved</p>
       <p class="rf">Design by <a target="_blank" href="http://www.hotwebsitetemplates.net/">HotWebsiteTemplates</a></p>
@@ -155,6 +129,7 @@
     </div>
     <div class="clr"></div>
   </div>
+  {% endblock %}
 </div>
 </body>
 </html>
