@@ -13,23 +13,18 @@
     </div>
     <hr class="divider">
     <div class="tabla">
-	<table class="itemsDisposition">
-		<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Name</th>
-		</tr>
-		</thead>
-		<tbody>
-		{% for category in categories %}
-		<tr>
-			<th scope="row">{{ category.id }}</th>
-			<td>
-				{{ category.Name }}
-			</td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+	<div class="table-responsive">
+  <table class="table text-center">
+    <thead>
+      <tr>
+      {% for category in categories %}
+        <td><a class="link {{loop.first ? 'active' : ''}}" href="#category{{category.id}}" data-toggle="tab">{{category.name}}</a></td>
+      {% endfor %}
+      	</tr>
+    	</thead>
+  	</table>
+  	<hr>
+	</div>
+
     </div>
 {% endblock %}

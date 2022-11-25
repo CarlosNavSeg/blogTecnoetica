@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -34,6 +36,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(nullable:true)]
     private ?float $Rating = null;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Blogpost::class)]
+    private Collection $blogposts;
+
+    public function __construct()
+    {
+        $this->blogposts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +135,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRating(float $Rating): self
     {
         $this->Rating = $Rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blogpost>
+     */
+    public function getBlogposts(): Collection
+    {
+        return $this->blogposts;
+    }
+
+    public function addBlogpost(Blogpost $blogpost): self
+    {
+        if (!$this->blogposts->contains($blogpost)) {
+            $this->blogposts->add($blogpost);
+            $blogpost->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlogpost(Blogpost $blogpost): self
+    {
+        if ($this->blogposts->removeElement($blogpost)) {
+            // set the owning side to null (unless already changed)
+            if ($blogpost->getAuthor() === $this) {
+                $blogpost->setAuthor(null);
+            }
+        }
 
         return $this;
     }
