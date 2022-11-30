@@ -4,10 +4,10 @@
     <div class="body_resize">
     <div class="tab-content">
       <div class="left">
-          {% for recents in recentposts %}
+        {% for blogpost in blogposts %}
           {{ include ('partials/blogpost.html.twig')}}
-          {% endfor %}
-        </div>
+        {% endfor %}
+      </div>
     </div>
       </div>
       <div class="right">
@@ -35,8 +35,11 @@
       <div class="blok">
         <div class="registrationForm">
         {{ form_start(form) }}
-        {{ form_row(form.tile, {
+        {{ form_row(form.title, {
           label: 'Titulo'})
+           }}
+        {{ form_row(form.subtitle, {
+          label: 'Subtitulo'})
            }}
         {{ form_row(form.content, {
           label: 'Contenido'

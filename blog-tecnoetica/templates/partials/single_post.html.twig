@@ -1,0 +1,20 @@
+  <div class="blogposts">
+  <h1>{{blogpost.title}}</h1>
+  <p>{{blogpost.subtitle}}</p>
+  <p>{{ blogpost.content }}</p>
+  <p>Autor: {{blogpost.author.username}}</p>
+  <div class="commentBox">
+    {% if not comments %}
+        
+    {% else %}
+    <h3> Comments </h3>
+    {% for comment in comments %}
+        <h3> User: {{ comment.Post.author.username}}</h3>
+        <div class="commentContent">
+            <p> {{ comment.Content }}
+        </div>
+
+    {% endfor %}
+    {% endif %}
+  </div>
+  </div>

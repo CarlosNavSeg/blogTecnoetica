@@ -1,7 +1,7 @@
 
   <div class="blogposts">
-  <h1>{{blogpost.tile}}</h1>
-  <p>{{blogpost.content}}</p>
+  <h1>{{blogpost.title}}</h1>
+  <p>{{blogpost.subtitle}}</p>
   <p>Autor: {{blogpost.author.username}}
-  <p><span><a href="someroute">Read more</a></span></p>
+  <p><span><a href="{{ path('app_blog_post', {'slug':blogpost.slug}) }}">Read more</a></span></p>
   </div>

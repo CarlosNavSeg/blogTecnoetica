@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% if not blogpost %}
+    <h2>Post not found</h2>
+    {% else %}
+    {{ include('partials/single_post.html.twig') }}
+    {% endif %}
+    <div id="form" class="commentForm">
+    <h2>Post a comment<h2>
+    {{ form(commentForm, {'attr': {'class':'form-horizontal'}}) }}
+    </div>
+{% endblock %}

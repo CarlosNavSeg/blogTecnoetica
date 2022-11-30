@@ -39,15 +39,21 @@ class BlogpostRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+    * @return Post[] Returns an array of Post objects
+    */
     public function findAll()
     {
     return $this->createQueryBuilder('p')
-        ->orderBy('p.publishedAt', 'DESC')
+        ->orderBy('p.date', 'DESC')
         ->getQuery()
         ->getResult()
     ;
     }
 
+    /**
+    * @return Post[] Returns an array of Post objects
+    */
     public function findRecents()
     {
     return $this->createQueryBuilder('p')
@@ -73,13 +79,13 @@ class BlogpostRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Blogpost
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+       public function findOneBySomeField($value): ?Blogpost {
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

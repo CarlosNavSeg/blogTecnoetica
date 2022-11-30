@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BlogpostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,9 +17,9 @@ class Blogpost
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $tile = null;
+    private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 600)]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -31,19 +33,33 @@ class Blogpost
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $Category = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $subtitle = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Slug = null;
+
+    #[ORM\OneToMany(mappedBy: 'Post', targetEntity: Comment::class)]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTile(): ?string
+    public function getTitle(): ?string
     {
-        return $this->tile;
+        return $this->title;
     }
 
-    public function setTile(string $tile): self
+    public function setTitle(string $title): self
     {
-        $this->tile = $tile;
+        $this->title = $title;
 
         return $this;
     }
@@ -92,6 +108,60 @@ class Blogpost
     public function setCategory(?Category $Category): self
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(string $Slug): self
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
 
         return $this;
     }

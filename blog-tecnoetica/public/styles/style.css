@@ -513,3 +513,48 @@ height: 40px;}
 .itemsDisposition {
 	padding-top: 1.5rem;
 }
+
+.blogposts {
+
+	width: 970px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.blogposts h1, p {
+	text-align: center;
+}
+
+.commentForm {
+	width: 970px;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.commentForm h2 {
+	text-align: center;
+	padding-top: 3em;
+}
+
+.commentForm h2 form {
+	margin-top: -5rem;
+	text-align: center;
+}
+
+.commentForm form div {
+	width: 560px;
+	margin-right: auto;
+	margin-left:auto;
+}
+
+.commentForm form div input {
+	height: 140px;
+}
+
+#comment_form_Publish {
+	display: inline-block;
+	margin-top: 2em;
+	margin-right: auto;
+	margin-left: auto;
+}
+
