@@ -1,18 +1,22 @@
   <div class="blogposts">
-  <h1>{{blogpost.title}}</h1>
-  <p>{{blogpost.subtitle}}</p>
-  <p>{{ blogpost.content }}</p>
-  <p>Autor: {{blogpost.author.username}}</p>
+  <div class="blog-content">
+  <h1 class="post-title">{{blogpost.title}}</h1>
+  <p class="post-subtitle">{{blogpost.subtitle}}</p>
+  <p class="post-content">{{ blogpost.content }}</p>
+  <p class="post-author">Autor: {{blogpost.author.username}}</p>
+  </div>
   <div class="commentBox">
+  <p><button><a href="{{ path('post_like', {slug: post.slug}) }}">LIKE </a> {{post.numLikes}}</button></p>
     {% if not comments %}
         
     {% else %}
     <h3> Comments </h3>
     {% for comment in comments %}
-        <h3> User: {{ comment.Post.author.username}}</h3>
-        <div class="commentContent">
+      <div class="commentContent">
+          <h4> User: {{ comment.Post.author.username}}</h4>
+          <hr>
             <p> {{ comment.Content }}
-        </div>
+      </div>
 
     {% endfor %}
     {% endif %}

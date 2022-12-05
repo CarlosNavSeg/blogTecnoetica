@@ -9,7 +9,6 @@ use App\Form\BlogpostType;
 use App\Form\CommentFormType;
 use App\Repository\BlogpostRepository;
 use App\Repository\CategoryRepository;
-use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,7 +41,6 @@ class BlogController extends AbstractController
         return $this->redirectToRoute('app_blog_post', ["slug" => $blogpost->getSlug()]);
     }
     return $this->render('blog/blog.html.twig', array(
-        
         'form' => $form->createView(),
         'blogposts' => $recents,
         'categories' => $categories,
@@ -63,7 +61,6 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
         $comment = $form->getData();
         $comment->setPost($blogpost);  
-        //Aumentamos en 1 el número de comentarios del post
         $entityManager = $doctrine->getManager();    
         $entityManager->persist($comment);
         $entityManager->flush();
@@ -74,6 +71,20 @@ class BlogController extends AbstractController
         'blogpost' => $blogpost,
         'commentForm' => $form->createView()
     ]);
+    }
+
+    #[Route('/single_post/{slug}/like', name: 'post_like')]
+    public function like(ManagerRegistry $doctrine, $slug): Response
+    {
+    $repository = $doctrine->getRepository(Post::class);
+    $post = $repository->findOneBy(["slug"=>$slug]);
+    if ($post){
+        $post->setNumLikes($post->getNumLikes() + 1);
+        $entityManager = $doctrine->getManager();    
+        $entityManager->persist($post);
+        $entityManager->flush();
+    }
+    return $this->redirectToRoute('single_post', ["slug" => $post->getSlug()]);
     }
 }
 

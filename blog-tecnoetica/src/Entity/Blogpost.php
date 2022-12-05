@@ -42,9 +42,11 @@ class Blogpost
     #[ORM\OneToMany(mappedBy: 'Post', targetEntity: Comment::class)]
     private Collection $comments;
 
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,4 +167,8 @@ class Blogpost
 
         return $this;
     }
+
+
+
+
 }
