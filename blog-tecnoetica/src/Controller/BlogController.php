@@ -9,6 +9,7 @@ use App\Form\BlogpostType;
 use App\Form\CommentFormType;
 use App\Repository\BlogpostRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\LikesRepository;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

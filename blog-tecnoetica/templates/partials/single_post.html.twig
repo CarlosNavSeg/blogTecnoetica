@@ -6,7 +6,6 @@
   <p class="post-author">Autor: {{blogpost.author.username}}</p>
   </div>
   <div class="commentBox">
-  <p><button><a href="{{ path('post_like', {slug: post.slug}) }}">LIKE </a> {{post.numLikes}}</button></p>
     {% if not comments %}
         
     {% else %}
